@@ -3,8 +3,7 @@
 #include <memory>
 #include <memory_resource>
 
-namespace bt::types
-{
-	template <typename T>
-	using allocator = std::pmr::polymorphic_allocator<T>;
+namespace bt::types {
+template<typename T>
+using allocator = std::pmr::polymorphic_allocator<T>;
 }
