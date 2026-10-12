@@ -99,7 +99,7 @@ jobs:
           cmake --build build/wasm
           mkdir bin
           mkdir bin/wasm
-          emcc -g build/wasm/libbt_template.a -o bin/wasm/template.js
+          emcc -g build/wasm/libbt_types.a -o bin/wasm/types.js
 
       - uses: cpp-linter/cpp-linter-action@v2
         id: linter
