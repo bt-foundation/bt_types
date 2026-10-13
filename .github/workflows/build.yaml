@@ -4,9 +4,14 @@ name: Build Tasker
 
 on:
   push:
-      branches: [ main ]
+      branches:
+        - dev
+        - dev/**
+        - feature/**
   pull_request:
-      branches: [ main ]
+      branches: 
+        - main
+        - dev
 
 jobs:
   build-windows:
