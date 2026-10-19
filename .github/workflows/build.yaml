@@ -106,7 +106,6 @@ jobs:
         run: |
           cmake --build build/wasm --target clean
           cmake --build build/wasm
-          mkdir bin
           mkdir bin/wasm
           emcc -g build/wasm/libbt_types.a -o bin/wasm/bt_types.js
 
