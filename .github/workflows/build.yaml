@@ -14,7 +14,7 @@ on:
         - dev
 
 jobs:
-  build-windows:
+  build-and-test-windows:
     runs-on: windows-latest
     strategy:
       fail-fast: false
@@ -34,15 +34,16 @@ jobs:
 
       - name: Configure with CMake (Visual Studio 18 2026)
         run: |
-          cmake -S . -B build `
-            -G "Visual Studio 18 2026" `
-            -A x64 `
-            -Dbt_types_BUILD_TESTS=OFF
+          cmake -S . -B build/win64 -G "Visual Studio 18 2026" -A x64
 
       - name: Build (Windows)
-        run: cmake --build build --config Release
+        run: cmake --build build/win64 --config Release
 
-  build-linux:
+      - name: Run tests
+        working-directory: ${{github.workspace}}/build/win64
+        run: ctest
+
+  build-and-test-linux:
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -65,14 +66,17 @@ jobs:
 
       - name: Configure (Linux)
         run: |
-          cmake -S . -B build \
-            -G Ninja \
-            -Dbt_types_BUILD_TESTS=OFF
+          cmake -S . -B build/linux64 -G Ninja
 
       - name: Build (Linux)
-        run: cmake --build build --config Release
+        run: | 
+          cmake --build build/linux64 --config Release
+
+      - name: Run tests
+        working-directory: ${{github.workspace}}/build/linux64
+        run: ctest
   
-  build-wasm-plus-clang-tidy:
+  build-and-test-wasm-plus-clang-tidy:
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -94,17 +98,21 @@ jobs:
         run: |
           sudo apt-get install -y build-essential cmake
 
-      - name: build-wasm
-        run: emcmake cmake . -B build/wasm -Dbt_types_BUILD_TESTS=OFF
+      - name: Build WASM
+        run: emcmake cmake . -B build/wasm
 
       # Change name of the input .a library to match the projects name (same as in comple-wasm.bat)
-      - name: compile-wasm
+      - name: Compile WASM
         run: |
           cmake --build build/wasm --target clean
           cmake --build build/wasm
           mkdir bin
           mkdir bin/wasm
-          emcc -g build/wasm/libbt_types.a -o bin/wasm/types.js
+          emcc -g build/wasm/libbt_types.a -o bin/wasm/bt_types.js
+
+      - name: Run tests
+        working-directory: ${{github.workspace}}/build/wasm
+        run: ctest
 
       - uses: cpp-linter/cpp-linter-action@v2
         id: linter
@@ -123,4 +131,3 @@ jobs:
       - name: Fail if clang-tidy reported anything
         if: steps.linter.outputs.clang-tidy-checks-failed > 0
         run: exit 1
-      
