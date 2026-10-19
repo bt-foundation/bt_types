@@ -14,7 +14,7 @@ on:
         - dev
 
 jobs:
-  build-and-test-windows:
+  windows-build-and-test:
     runs-on: windows-latest
     strategy:
       fail-fast: false
@@ -34,16 +34,18 @@ jobs:
 
       - name: Configure with CMake (Visual Studio 18 2026)
         run: |
-          cmake -S . -B build/win64 -G "Visual Studio 18 2026" -A x64
+          mkdir "build"
+          cd build
+          cmake --preset "Windows Debug" ..\CMakeLists.txt
 
       - name: Build (Windows)
-        run: cmake --build build/win64 --config Release
+        run: cmake --build build/win64 --config Debug
 
       - name: Run tests
         working-directory: ${{github.workspace}}/build/win64
         run: ctest
 
-  build-and-test-linux:
+  linux-build-and-test:
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -76,7 +78,7 @@ jobs:
         working-directory: ${{github.workspace}}/build/linux64
         run: ctest
   
-  build-and-test-wasm-plus-clang-tidy:
+  wasm-build-and-test-plus-clang-tidy:
     runs-on: ubuntu-latest
     permissions:
       contents: write
