@@ -71,3 +71,34 @@ Function(create_interface)
     Target_Link_Libraries(${MODULE_NAME} INTERFACE ${MODULE_DEPENDENCIES})
     Target_Include_Directories(${MODULE_NAME} INTERFACE "${MODULE_DIRECTORY}/public")
 EndFunction()
+
+Function(create_test)
+    Set(options "")
+    Set(oneValueArgs NAME MODULE DIRECTORY)
+    Set(multiValueArgs DEPENDENCIES INCLUDE_DIRS)
+
+    CMake_Parse_Arguments(TEST "${options}" "${oneValueArgs}" "${multiValueArgs}" ${ARGN})
+
+    if (NOT TEST_NAME OR NOT TEST_DIRECTORY)
+        Message(FATAL_ERROR "create_test requires a valid NAME, MODULE and DIRECTORY.")
+    endif ()
+    
+    message("-- Creating Test --")
+    message("Test name: ${TEST_NAME}")
+    message("Test include dirs: ${TEST_INCLUDE_DIRS}")
+    message("Test dir: ${TEST_DIRECTORY}")
+    message("Test deps: ${TEST_DEPENDENCIES}")
+    message("")
+
+    File(GLOB_RECURSE TEST_FILES "${TEST_DIRECTORY}/*.cpp")
+
+    Add_Executable(${TEST_NAME} ${TEST_FILES})
+
+    Set_Target_Properties(${TEST_NAME} PROPERTIES LINKER_LANGUAGE CXX)
+    Target_Link_Libraries(${TEST_NAME} PRIVATE ${TEST_DEPENDENCIES} GTest::gtest_main)
+    Target_Include_Directories(${TEST_NAME} PUBLIC "${TEST_DIRECTORY}" "${TEST_INCLUDE_DIRS}" PRIVATE "${TEST_DIRECTORY}")
+
+    include(GoogleTest)
+    gtest_discover_tests(${TEST_NAME})
+
+EndFunction()
