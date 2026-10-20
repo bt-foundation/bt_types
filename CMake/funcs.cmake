@@ -8,7 +8,7 @@ Function(create_example)
     if (NOT EXAMPLE_NAME OR NOT EXAMPLE_DIRECTORY)
         Message(FATAL_ERROR "create_example requires a valid NAME, MODULE and DIRECTORY.")
     endif ()
-
+    
     message("-- Creating Example --")
     message("Example name: ${EXAMPLE_NAME}")
     message("Example include dirs: ${EXAMPLE_INCLUDE_DIRS}")
@@ -19,6 +19,8 @@ Function(create_example)
     File(GLOB_RECURSE EXAMPLE_FILES "${EXAMPLE_DIRECTORY}/*.cpp")
 
     Add_Executable(${EXAMPLE_NAME} ${EXAMPLE_FILES})
+    
+    Set_Property(TARGET ${EXAMPLE_NAME} PROPERTY FOLDER "Examples")
 
     Set_Target_Properties(${EXAMPLE_NAME} PROPERTIES LINKER_LANGUAGE CXX)
     Target_Link_Libraries(${EXAMPLE_NAME} PRIVATE ${EXAMPLE_DEPENDENCIES})
@@ -43,9 +45,12 @@ Function(create_module)
     message("Module dir: ${MODULE_DIRECTORY}")
     message("Module deps: ${MODULE_DEPENDENCIES}")
     message("")
-
+    
     File(GLOB_RECURSE MODULE_FILES "${MODULE_DIRECTORY}/public/*.hpp" "${MODULE_DIRECTORY}/private/*.cpp" "${MODULE_DIRECTORY}/*.mm")
+
     Add_Library(${MODULE_NAME} STATIC ${MODULE_FILES})
+
+    Set_Property(TARGET ${MODULE_NAME} PROPERTY FOLDER "Libs")
 
     Set_Target_Properties(${MODULE_NAME} PROPERTIES LINKER_LANGUAGE ${MODULE_LANGUAGE})
     Target_Link_Libraries(${MODULE_NAME} PUBLIC ${MODULE_DEPENDENCIES})
@@ -65,7 +70,10 @@ Function(create_interface)
     endif ()
 
     File(GLOB_RECURSE MODULE_FILES "${MODULE_DIRECTORY}/*.hpp")
+
     Add_Library(${MODULE_NAME} INTERFACE ${MODULE_FILES})
+
+    Set_Property(TARGET ${MODULE_NAME} PROPERTY FOLDER "Libs")
 
     Set_Target_Properties(${MODULE_NAME} PROPERTIES LINKER_LANGUAGE ${MODULE_LANGUAGE})
     Target_Link_Libraries(${MODULE_NAME} INTERFACE ${MODULE_DEPENDENCIES})
@@ -93,6 +101,8 @@ Function(create_test)
     File(GLOB_RECURSE TEST_FILES "${TEST_DIRECTORY}/*.cpp")
 
     Add_Executable(${TEST_NAME} ${TEST_FILES})
+
+    Set_Property(TARGET ${TEST_NAME} PROPERTY FOLDER "Tests")
 
     Set_Target_Properties(${TEST_NAME} PROPERTIES LINKER_LANGUAGE CXX)
     Target_Link_Libraries(${TEST_NAME} PRIVATE ${TEST_DEPENDENCIES} GTest::gtest_main)

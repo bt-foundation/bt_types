@@ -17,4 +17,5 @@ If(${${PROJECT_NAME}_BUILD_TESTS})
         GITHUB_REPOSITORY "google/googletest"
         GIT_TAG main
     )
+    Set_Property(TARGET gtest PROPERTY FOLDER "Dependencies")
 Endif()
