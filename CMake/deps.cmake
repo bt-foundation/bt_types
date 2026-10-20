@@ -18,4 +18,7 @@ If(${${PROJECT_NAME}_BUILD_TESTS})
         GIT_TAG main
     )
     Set_Property(TARGET gtest PROPERTY FOLDER "Dependencies")
+    Set_Property(TARGET gtest_main PROPERTY FOLDER "Dependencies")
+    Set_Property(TARGET gmock PROPERTY FOLDER "Dependencies")
+    Set_Property(TARGET gmock_main PROPERTY FOLDER "Dependencies")
 Endif()
