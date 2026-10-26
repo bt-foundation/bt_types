@@ -4,11 +4,12 @@
 #include <thread>
 
 namespace bt::types {
-using thread = std::thread;
-using join_thread = std::jthread;
+
+using Thread = std::thread;
+using JoinThread = std::jthread;
 
 namespace this_thread {
-    inline thread::id get_id() noexcept {
+    inline Thread::id get_id() noexcept {
         return std::this_thread::get_id();
     }
 
@@ -21,4 +22,5 @@ namespace this_thread {
         std::this_thread::sleep_for(dur);
     }
 } // namespace this_thread
+
 } // namespace bt::types

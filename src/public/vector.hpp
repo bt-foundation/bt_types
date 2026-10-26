@@ -5,6 +5,6 @@
 #include "memory.hpp"
 
 namespace bt::types {
-template<typename T, typename AllocT = allocator<T>>
-using vector = std::vector<T, AllocT>;
+template<typename T>
+using vector = std::pmr::vector<T>;
 }
