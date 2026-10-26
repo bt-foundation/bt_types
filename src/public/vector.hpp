@@ -5,6 +5,8 @@
 #include "memory.hpp"
 
 namespace bt::types {
+
 template<typename T>
-using vector = std::pmr::vector<T>;
+using Vector = std::pmr::vector<T>;
+
 }
