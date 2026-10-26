@@ -9,7 +9,7 @@ using Thread = std::thread;
 using JoinThread = std::jthread;
 
 namespace this_thread {
-    inline Thread::id get_id() noexcept {
+    inline auto get_id() noexcept -> Thread::id {
         return std::this_thread::get_id();
     }
 
@@ -17,8 +17,8 @@ namespace this_thread {
         std::this_thread::yield();
     }
 
-    void sleep_for(long long ms) {
-        auto dur = std::chrono::milliseconds(ms);
+    void sleep_for(long long millis) {
+        auto dur = std::chrono::milliseconds(millis);
         std::this_thread::sleep_for(dur);
     }
 } // namespace this_thread
