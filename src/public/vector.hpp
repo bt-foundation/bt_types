@@ -7,6 +7,6 @@
 namespace bt::types {
 
 template<typename T>
-using Vector = std::pmr::vector<T>;
+using Vec = std::pmr::vector<T>;
 
 }
