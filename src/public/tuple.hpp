@@ -27,6 +27,6 @@ template<typename Tuple>
 using TupleSize = std::tuple_size<Tuple>;
 
 template<typename T>
-constexpr size_t TupleSizeValue = std::tuple_size<T>::value;
+constexpr size_t TupleSizeValue = std::tuple_size_v<T>;
 
 } // namespace bt::types
