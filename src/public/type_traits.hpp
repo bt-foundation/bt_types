@@ -8,7 +8,7 @@ template<bool Val>
 using BoolConst = std::bool_constant<Val>;
 
 template<typename... T>
-using CommonTypeT = std::common_type_t<T...>;
+using CommonType = std::common_type_t<T...>;
 
 template<bool Test, typename T1, typename T2>
 using CondType = std::conditional_t<Test, T1, T2>;
@@ -70,7 +70,7 @@ using std::remove_reference_t;
 using TrueType = std::true_type;
 
 template<typename T>
-using TypeId = std::type_identity<T>;
+using TypeIdentity = std::type_identity_t<T>;
 
 template<typename T>
 using UnderlyingType = std::underlying_type_t<T>;

@@ -12,7 +12,7 @@ template<typename T>
 using Vec = std::pmr::vector<T>;
 
 template<typename T, size_t Size>
-using ConstVec = std::array<T, Size>;
+using Array = std::array<T, Size>;
 
 using std::get;
 

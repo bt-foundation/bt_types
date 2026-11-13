@@ -5,7 +5,7 @@
 namespace bt::types {
 
 template<typename T, typename... Args>
-concept ConstructableFrom = std::constructible_from<T, Args...>;
+concept ConstructibleFrom = std::constructible_from<T, Args...>;
 
 template<typename T>
 concept DefaultInitializable = std::default_initializable<T>;
