@@ -3,6 +3,7 @@
 #include <array>
 #include <vector>
 
+#include "cstddef.hpp"
 #include "memory.hpp"
 
 namespace bt::types {

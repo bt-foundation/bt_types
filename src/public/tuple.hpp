@@ -2,6 +2,8 @@
 
 #include <tuple>
 
+#include "cstddef.hpp"
+
 namespace bt::types {
 
 using std::apply;
