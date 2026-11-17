@@ -75,4 +75,6 @@ using TypeIdentity = std::type_identity_t<T>;
 template<typename T>
 using UnderlyingType = std::underlying_type_t<T>;
 
+using std::addressof;
+
 } // namespace bt::types
