@@ -7,6 +7,8 @@
 namespace bt::types {
 
 template<typename ElemT = char, typename Traits = std::char_traits<ElemT>>
-using StringView = std::basic_string_view<ElemT, Traits>;
+using BasicStringView = std::basic_string_view<ElemT, Traits>;
 
-}
+using StringView = BasicStringView<>;
+
+} // namespace bt::types
