@@ -80,10 +80,10 @@ class SparseSetIter final {
         return other.m_Offset - m_Offset;
     }
 
-    [[nodiscard]] constexpr auto
-    operator==(const SparseSetIter& other) const noexcept -> bool {
-        return other.m_Offset == m_Offset;
-    }
+    // [[nodiscard]] constexpr auto
+    // operator==(const SparseSetIter& other) const noexcept -> bool {
+    //     return other.m_Offset == m_Offset;
+    // }
 
     [[nodiscard]] constexpr auto
     operator==(const SparseSetIter& other) const noexcept {
