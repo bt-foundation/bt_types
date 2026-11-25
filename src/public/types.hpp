@@ -2,12 +2,16 @@
 
 #include <config.hpp>
 
+#include "algorithm.hpp"
+#include "any.hpp"
 #include "atomic.hpp"
 #include "cassert.hpp"
 #include "concepts.hpp"
 #include "cstddef.hpp"
 #include "cstdint.hpp"
+#include "expected.hpp"
 #include "functional.hpp"
+#include "hash.hpp"
 #include "hash_map.hpp"
 #include "hash_set.hpp"
 #include "iterators.hpp"
@@ -17,5 +21,6 @@
 #include "thread.hpp"
 #include "tuple.hpp"
 #include "type_info.hpp"
+#include "type_traits.hpp"
 #include "utility.hpp"
 #include "vector.hpp"
