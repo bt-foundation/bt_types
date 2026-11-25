@@ -13,7 +13,7 @@ namespace internal {
     struct TypeIndex final {
         [[nodiscard]] static ID next() noexcept {
             static Atomic<uint64_t> value {};
-            return value.fetch_add(1, MemOrd::memory_order_seq_cst);
+            return value.fetch_add(1, MemOrd::seq_cst);
         }
     };
 
