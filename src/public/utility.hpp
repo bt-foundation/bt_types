@@ -1,5 +1,6 @@
 #pragma once
 
+#include <limits>
 #include <utility>
 
 namespace bt::types {
@@ -24,5 +25,9 @@ using Pair = std::pair<T1, T2>;
 using std::piecewise_construct;
 using std::piecewise_construct_t;
 using std::swap;
+
+using std::numeric_limits;
+using std::integer_sequence;
+using std::make_integer_sequence;
 
 } // namespace bt::types
